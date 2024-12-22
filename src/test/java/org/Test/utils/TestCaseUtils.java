@@ -363,12 +363,26 @@ public class TestCaseUtils {
         String brand = fetchBrandName(endpoint);
         String domain = fetchDomainName(endpoint);
 
+        // Create a TestResultsModel object to store the result
+        TestResultsModel testResult = new TestResultsModel();
+        testResult.setTestName("FAQ Content Title Validation");
+        testResult.setKey(questionTitle); // Set the question title as the key
+        testResult.setExpected(expectedContentTitle); // Set expected content title
+        testResult.setActual(contentTitle); // Set the actual fetched content title
+        testResult.setBrand(brand); // Set the brand
+        testResult.setDomain(domain); // Set the domain
+        testResult.setApiEndpoint(endpoint); // Set the API endpoint
+
+
 
         if (contentTitle != null && contentTitle.equals(expectedContentTitle)) {
             System.out.println(FAQ_TEST_PASSED_CONTENT_TITLE + expectedContentTitle + BRAND + brand + DOMAIN + domain);
+            testResult.setStatus("Test Passed.");
         } else {
             System.out.println(FAQ_TEST_FAILED_EXPECTED_CONTENT_TITLE + expectedContentTitle + BUT_GOT + contentTitle + URL + endpoint);
+            testResult.setStatus("Test Failed.");
         }
+        testResultsModelList.add(testResult);
     }
 
 
