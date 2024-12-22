@@ -72,6 +72,7 @@ public class TestCaseUtils {
     public static final String TEST_PASSED_KEY = "Test passed. Key: ";
     public static final String CONTENT_DAM_BREADMOBILE_US_EN = "/content/dam/breadmobile/us/en/";
     public static final String TEST_REPORT_HTML = "test-report.html";
+    public static final String TEST_PASSED = "Test Passed.";
 
     public static List<TestResultsModel>  testResultsModelList = new ArrayList<>();
 
@@ -131,7 +132,7 @@ public class TestCaseUtils {
             Value = response.jsonPath().getString("data.screenByPath.item.faq.find { it.contentTitle == '" + ExpectedResponse + "' }.contentTitle");
             if (Value != null && Value.equals(ExpectedResponse)) {
                 System.out.println(FAQ_TEST_PASSED_CONTENT_TITLE + ExpectedResponse + BRAND + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint));
-                result.setStatus("Test Passed");
+                result.setStatus(TEST_PASSED);
                 result.setActual(Value);
                 testResultsModelList.add(result);
 
@@ -148,7 +149,7 @@ public class TestCaseUtils {
 
         if (ExpectedResponse.equals(NULL) && Value == null) {
             System.out.println(TEST_PASSED_KEY + key + ", Brand : " + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint));
-            result.setStatus("Test Passed");
+            result.setStatus(TEST_PASSED);
             result.setActual("NULL");
             testResultsModelList.add(result);
             return;
@@ -157,7 +158,7 @@ public class TestCaseUtils {
         //Assert.assertEquals(q , ExpectedResponse);
         if (Value != null && Value.equals(ExpectedResponse)) {
             System.out.println(TEST_PASSED_KEY + key + ", Brand : " + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint) + ", TYPE: " + Type);
-            result.setStatus("Test Passed");
+            result.setStatus(TEST_PASSED);
             result.setActual(Value);
             //  System.out.println(endpoint);
         } else {
@@ -206,14 +207,14 @@ public class TestCaseUtils {
         //Assert.assertEquals(q , ExpectedResponse);
         if (ExpectedResponse.equals(NULL) && Value == null) {
             System.out.println(TEST_PASSED_KEY + key + ", Brand : " + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint));
-            result.setStatus("Test passed.");
+            result.setStatus(TEST_PASSED);
             result.setActual("NULL");
             testResultsModelList.add(result);
             return;
         }
         if (Value != null && Value.equals(ExpectedResponse)) {
             System.out.println(TEST_PASSED_KEY + key + ", Brand : " + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint));
-            result.setStatus("Test passed.");
+            result.setStatus(TEST_PASSED);
             result.setActual(Value);
         } else {
             System.out.println(TEST_FAILED_KEY + key + " Expected: " + ExpectedResponse + BUT_GOT + Value + URL + endpoint);
@@ -264,7 +265,7 @@ public class TestCaseUtils {
 
         if (value != null && value.equals(expectedResponse)) {
             System.out.println(TEST_PASSED_KEY + key + BRAND + fetchBrandName(endpoint) + DOMAIN + fetchDomainName(endpoint));
-            result.setStatus("Test passed.");
+            result.setStatus(TEST_PASSED);
             // System.out.println(endpoint);
         } else {
             System.out.println(TEST_FAILED_KEY + key + EXPECTED + expectedResponse + BUT_GOT + value + URL + endpoint);
@@ -377,7 +378,7 @@ public class TestCaseUtils {
 
         if (contentTitle != null && contentTitle.equals(expectedContentTitle)) {
             System.out.println(FAQ_TEST_PASSED_CONTENT_TITLE + expectedContentTitle + BRAND + brand + DOMAIN + domain);
-            testResult.setStatus("Test Passed.");
+            testResult.setStatus(TEST_PASSED);
         } else {
             System.out.println(FAQ_TEST_FAILED_EXPECTED_CONTENT_TITLE + expectedContentTitle + BUT_GOT + contentTitle + URL + endpoint);
             testResult.setStatus("Test Failed.");
@@ -629,6 +630,12 @@ public class TestCaseUtils {
 
     public static void generateReport(List<TestResultsModel> testResults, String outputFilePath) {
         try (FileWriter writer = new FileWriter(outputFilePath)) {
+
+            // Count total, passed, and failed test cases
+            int totalTests = testResults.size();
+            int passedTests = (int) testResults.stream().filter(r -> TEST_PASSED.equalsIgnoreCase(r.getStatus())).count();
+            int failedTests = totalTests - passedTests;
+
             writer.write("<html>");
             writer.write("<head>");
             writer.write("<title>Test Results Report</title>");
@@ -642,6 +649,10 @@ public class TestCaseUtils {
             writer.write("</head>");
             writer.write("<body>");
             writer.write("<h1 style='text-align: center;'>Test Results Report</h1>");
+            // Summary Section
+            writer.write("<div style='width: 80%; margin: auto; text-align: center; margin-bottom: 20px;'>");
+            writer.write("<p><strong>Total Test Cases:</strong> " + totalTests + " | <strong>Passed:</strong> " + passedTests + "  | <strong>Failed:</strong> " + failedTests +"</p> ");
+            writer.write("</div>");
             writer.write("<table>");
             writer.write("<tr>");
             writer.write("<th>#</th>"); // Series number
