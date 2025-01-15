@@ -11,7 +11,7 @@ public class BrandContentTest implements Testable {
 
     @Test
     public void intialSetupConfig() {
-        TestCaseUtils.compareURLResponses( "saloncentric",RestUtils.UAT,"legendarypine",RestUtils.UAT, this);
+        TestCaseUtils.compareURLResponses( "brand_copy",RestUtils.UAT,"breadcashback",RestUtils.DEV, this);
     }
     @Override
     public void Testing(Response response, String endpoint) {}

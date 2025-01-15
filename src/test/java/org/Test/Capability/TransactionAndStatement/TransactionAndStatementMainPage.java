@@ -20,10 +20,8 @@ public class TransactionAndStatementMainPage implements Testable {
     }
     @Override
     public void Testing(Response response, String endpoint) {
-        //-------17755---------------------------------------------------------
         TestCaseUtils.textAtrributes(response,"transaction-page-toggle-text","Transactions",TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
         TestCaseUtils.textAtrributes(response,"statement-page-toggle-text","Statements",TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
-
     }
 }
 

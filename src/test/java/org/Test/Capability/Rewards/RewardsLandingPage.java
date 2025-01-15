@@ -19,10 +19,10 @@ public class RewardsLandingPage implements Testable {
     public void Testing(Response response, String endpoint) {
         //-------17755---------------------------------------------------------
 
-//        TestCaseUtils.textAtrributes(response,"rewards-brand-website-url","null",TestCaseUtils.PLAIN_TEXT,endpoint);
-//
-//        TestCaseUtils.textAtrributes(response,"use-your-rewards-title","<p>Available rewards</p>\n",TestCaseUtils.HTTP_CONTENT_TYPE,endpoint);
-//        TestCaseUtils.textAtrributes(response,"rewards-card-description","Start shopping to earn rewards!",TestCaseUtils.PLAIN_TEXT,endpoint);
+        TestCaseUtils.textAtrributes(response,"rewards-brand-website-url","null",TestCaseUtils.PLAIN_TEXT,endpoint);
+
+        TestCaseUtils.textAtrributes(response,"use-your-rewards-title","<p>Available rewards</p>\n",TestCaseUtils.HTTP_CONTENT_TYPE,endpoint);
+        TestCaseUtils.textAtrributes(response,"rewards-card-description","Start shopping to earn rewards!",TestCaseUtils.PLAIN_TEXT,endpoint);
 
 
         TestCaseUtils.textAtrributes(response,"reward-terms-and-conditions-text","Rewards terms and conditions",TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);

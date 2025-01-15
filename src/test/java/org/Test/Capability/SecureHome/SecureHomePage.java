@@ -57,7 +57,9 @@ public class SecureHomePage implements Testable {
       //  TestCaseUtils.textAtrributes(response,"promotional-plan-expiration-date","Expiration",TestCaseUtils.PLAIN_TEXT,endpoint);
         //TestCaseUtils.textAtrributes(response,"promotional-plan-review-promo-plans-cta","Review promotional plan",TestCaseUtils.PLAIN_TEXT,endpoint);
 
-        TestCaseUtils.imageAttributesPath(response,"secure-home-promo-plans-expire-alarm","/assets/images/icon/alert-time-sensitive.png","_path",endpoint);
+       // TestCaseUtils.imageAttributesPath(response,"secure-home-promo-plans-expire-alarm","/assets/images/icon/alert-time-sensitive.png","_path",endpoint);
+
+        TestCaseUtils.ctaAtrributes(response,"secure-home-review-transaction-cta-1","Transactions and statements",TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
 
 
     }

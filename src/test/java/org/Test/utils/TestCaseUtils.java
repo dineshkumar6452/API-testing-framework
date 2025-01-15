@@ -567,6 +567,21 @@ public class TestCaseUtils {
 
     private static void generateHtmlReport(List<String[]> results) {
         StringBuilder htmlBuilder = new StringBuilder();
+        int totalApis = results.size();
+        int passedApis = 0;
+        int failedApis = 0;
+
+        for (String[] result : results) {
+            if (result != null && result.length == 3) {
+                String status = result[2];
+                if ("Identical".equalsIgnoreCase(status)) {
+                    passedApis++;
+                } else if ("Not Identical".equalsIgnoreCase(status)) {
+                    failedApis++;
+                }
+            }
+        }
+
         htmlBuilder.append("<!DOCTYPE html><html><head><title>URL Comparison Results</title>")
                 .append("<style>")
                 .append("table {width: 60%; margin: auto; border-collapse: collapse;} ")
@@ -577,6 +592,15 @@ public class TestCaseUtils {
                 .append("</style>")
                 .append("</head><body>")
                 .append("<h1 style='text-align: left; margin-left: 20%;'>URL Comparison Results</h1>")
+                .append("<p style='text-align: left; margin-left: 20%; font-style: italic;'>")
+                .append(java.time.LocalDateTime.now()
+                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .append("</p>")
+                .append("<div style='margin: 20px 20%; font-size: 16px;'>")
+                .append("<p>Total APIs Tested: ").append(totalApis)
+                .append(", Passed: ").append(passedApis)
+                .append(", Failed: ").append(failedApis).append("</p>")
+                .append("</div>")
                 .append("<table><thead><tr><th>#</th><th>URL 1</th><th>URL 2</th><th>Status</th></tr></thead><tbody>");
 
         int rowNumber = 1; // Initialize the row number counter

@@ -17,7 +17,7 @@ public class card_lock_unlock_main_page implements Testable {
     public void intialSetupConfig() {
        //List<String> urls = ExcelUtils.FetchtheListfromExcelsheetByColumnName(TestCaseUtils.SHEET_1,"card_lock_unlock_main_page");
         List<String> urls = ExcelUtils.getSubCapabilityFromExcelAndGeneratesURLS("card_lock_unlock_main_page");
-        String domain = RestUtils.PROD;
+        String domain = RestUtils.UAT;
         TestCaseUtils.ExecuteTesting(urls, domain,this);
     }
 
@@ -28,6 +28,9 @@ public class card_lock_unlock_main_page implements Testable {
         //TestCaseUtils.textAtrributes(response,"lock-unlock-decline-transaction-history","Declined transaction history", TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
         //TestCaseUtils.textAtrributes(response,"lock-unlock-recurring-off-texte","Decline recurring charges while locked", TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
        // TestCaseUtils.textAtrributes(response,"lock-unlock-recurring-on-text","Allow recurring charges while locked", TestCaseUtils.ACCESSIBILITY_TEXT,endpoint);
-        TestCaseUtils.textAtrributes(response,"lock-unlock-decline-transaction-history","<p><a title=\"Declined transaction history\" href=\"/SmcCompose.html\">Declined transaction history</a></p>", TestCaseUtils.HTTP_CONTENT_TYPE,endpoint);
+        //TestCaseUtils.textAtrributes(response,"lock-unlock-decline-transaction-history","<p><a title=\"Declined transaction history\" href=\"/SmcCompose.html\">Declined transaction history</a></p>", TestCaseUtils.HTTP_CONTENT_TYPE,endpoint);
+
+        TestCaseUtils.textAtrributes(response,"unlocked-state-error-content","<p>Oops. There's a technical issue. To lock your card, please go to&nbsp;<a href=\"https://duat.comenity.net/ac/$brandSiteName/public/home\" title=\"Lock your card on Account Center\">Account Center</a>.</p>\n", TestCaseUtils.HTTP_CONTENT_TYPE,endpoint);
+
     }
 }
